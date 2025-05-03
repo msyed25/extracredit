@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Houston Clinic - Patient Intake Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="extracredit.css" />
+  <script src="https://www.google.com/recaptcha/api.js?render=your_site_key"></script>
+</head>
+<body>
+  <header id="main-header">
+    <div class="header-content">
+      <img src="medlogo.png" alt="Clinic Logo" id="logo" />
+      <h2>Houston Clinic - Patient Intake Form</h2>
+      <div id="greeting">Welcome New User</div>
+    </div>
+  </header>
+
+  <main class="format">
+    <form id="patientForm">
+      <h3>Patient Information</h3>
+      <label for="fname">First Name:</label>
+      <input type="text" id="fname" required title="Enter your first name (letters only)">
+      <span id="fname-error" class="error-message"></span>
+
+      <label for="mname">Middle Initial:</label>
+      <input type="text" id="mname" maxlength="1" pattern="[A-Za-z]" title="Enter one letter">
+      <span id="mname-error" class="error-message"></span>
+
+      <label for="lname">Last Name:</label>
+      <input type="text" id="lname" required title="Enter your last name (letters only)">
+      <span id="lname-error" class="error-message"></span>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" required title="Enter a valid email address">
+      <span id="email-error" class="error-message"></span>
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" pattern="\d{3}-\d{3}-\d{4}" required placeholder="000-000-0000" title="Format: 000-000-0000">
+      <span id="phone-error" class="error-message"></span>
+
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" required>
+      <span id="dob-error" class="error-message"></span>
+
+      <label for="ssn">Social Security Number (SSN):</label>
+      <input type="password" id="ssn" pattern="\d{3}-\d{2}-\d{4}" required placeholder="123-45-6789" title="Format: 123-45-6789">
+      <span id="ssn-error" class="error-message"></span>
+
+      <h3>Address</h3>
+      <label for="addr1">Address Line 1:</label>
+      <input type="text" id="addr1" required>
+      <span id="addr1-error" class="error-message"></span>
+
+      <label for="addr2">Address Line 2:</label>
+      <input type="text" id="addr2">
+      <span id="addr2-error" class="error-message"></span>
+
+      <label for="city">City:</label>
+      <input type="text" id="city" required>
+      <span id="city-error" class="error-message"></span>
+
+      <label for="state">State:</label>
+      <select id="state" required>
+        <option value="">--Select--</option>
+        <option value="TX">TX</option>
+        <option value="CA">CA</option>
+        <option value="NY">NY</option>
+      </select>
+      <span id="state-error" class="error-message"></span>
+
+      <label for="zip">Zip Code:</label>
+      <input type="text" id="zip" pattern="\d{5}(-\d{4})?" required placeholder="12345 or 12345-6789">
+      <span id="zip-error" class="error-message"></span>
+
+      <h3>Medical History</h3>
+      <label>Check all that apply:</label>
+      <label><input type="checkbox" class="illness" value="Chicken Pox"> Chicken Pox</label>
+      <label><input type="checkbox" class="illness" value="Measles"> Measles</label>
+      <label><input type="checkbox" class="illness" value="Covid-19"> Covid-19</label>
+      <label><input type="checkbox" class="illness" value="Heart Disease"> Heart Disease</label>
+      <label><input type="checkbox" class="illness" value="Diabetes"> Diabetes</label>
+
+      <label>Vaccinated?</label>
+      <label><input type="radio" name="vax" value="Yes"> Yes</label>
+      <label><input type="radio" name="vax" value="No"> No</label>
+      <label><input type="radio" name="vax" value="Unsure"> Unsure</label>
+
+      <label for="symptoms">Describe Symptoms:</label>
+      <textarea id="symptoms" rows="4" cols="40" placeholder="Please provide details"></textarea>
+
+      <label for="pain">Pain Level:</label>
+      <input type="range" id="pain" min="0" max="10" value="5">
+      <span id="pain-display">5</span>/10
+
+      <label>Gender:</label>
+      <label><input type="radio" name="pgender" value="Male"> Male</label>
+      <label><input type="radio" name="pgender" value="Female"> Female</label>
+      <label><input type="radio" name="pgender" value="Other"> Other</label>
+
+      <h3>Account Info</h3>
+      <label for="uid">Patient ID (Username):</label>
+      <input type="text" id="uid" required>
+      <span id="uid-error" class="error-message"></span>
+
+      <label for="pword">Password:</label>
+      <input type="password" id="pword" required>
+      <span id="pword-error" class="error-message"></span>
+
+      <label for="pword2">Re-enter Password:</label>
+      <input type="password" id="pword2" required>
+      <span id="pword2-error" class="error-message"></span>
+
+      <label><input type="checkbox" id="rememberMe" checked /> Remember Me</label>
+      <div id="not-you-container"></div>
+
+      <button type="button" id="review-btn">Review</button>
+      <input type="submit" id="submit-btn" value="Submit" disabled>
+      <input type="reset" value="Clear">
+    </form>
+
+    <section id="iframe-container">
+      <h3>Patient Education: Visit CDC for COVID-19 Guidance</h3>
+      <iframe src="https://www.cdc.gov/coronavirus/2019-ncov/index.html" title="CDC COVID-19 Information"></iframe>
+    </section>
+  </main>
+
+  <div id="reviewModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Review Your Information</h2>
+      <div id="reviewContent"></div>
+      <button id="confirmSubmit">Confirm and Submit</button>
+      <button id="editInfo">Edit Information</button>
+    </div>
+  </div>
+
+  <footer id="main-footer">
+    <p>&copy; 2025 | Today's date: <span id="dateDisplay"></span></p>
+    <p>Made by Muhammad Syed | <a href="#">Privacy</a> | <a href="#">Terms</a></p>
+  </footer>
+
+  <script src="extracredit.js"></script>
+</body>
+</html>
+
