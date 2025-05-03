@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Houston Clinic - Patient Intake Form</title>
   <link rel="stylesheet" href="extracredit.css" />
   <script src="https://www.google.com/recaptcha/api.js?render=your_site_key"></script>
@@ -17,38 +18,131 @@
   </header>
 
   <main class="format">
-    <!-- Form fields from assignment preserved -->
     <form id="patientForm">
-      <!-- OMITTED FOR BREVITY: All form rows from user input would be here -->
-      <!-- Including fname, lname, ssn, email, dob, symptoms, etc. -->
-      <!-- Buttons -->
-      <tr>
-        <td colspan="2" style="text-align:center;">
-          <input type="submit" id="submit-btn" value="Submit" disabled />
-          <input type="reset" value="Clear" />
-          <button type="button" id="validate-btn">Validate</button>
-        </td>
-      </tr>
+      <h3>Patient Information</h3>
+      <label>First Name:
+        <input type="text" id="fname" required title="Enter your first name (letters only)" />
+        <span class="error-message" id="fname-error"></span>
+      </label>
+      <label>Middle Initial:
+        <input type="text" id="mname" maxlength="1" pattern="[A-Za-z]" />
+        <span class="error-message" id="mname-error"></span>
+      </label>
+      <label>Last Name:
+        <input type="text" id="lname" required title="Enter your last name" />
+        <span class="error-message" id="lname-error"></span>
+      </label>
+      <label>Email:
+        <input type="email" id="email" required />
+        <span class="error-message" id="email-error"></span>
+      </label>
+      <label>Phone:
+        <input type="tel" id="phone" placeholder="000-000-0000" pattern="\d{3}-\d{3}-\d{4}" required />
+        <span class="error-message" id="phone-error"></span>
+      </label>
+      <label>Date of Birth:
+        <input type="date" id="dob" required />
+        <span class="error-message" id="dob-error"></span>
+      </label>
+      <label>SSN:
+        <input type="password" id="ssn" placeholder="123-45-6789" pattern="\d{3}-\d{2}-\d{4}" required />
+        <span class="error-message" id="ssn-error"></span>
+      </label>
+
+      <h3>Address</h3>
+      <label>Address Line 1:
+        <input type="text" id="addr1" required />
+        <span class="error-message" id="addr1-error"></span>
+      </label>
+      <label>Address Line 2:
+        <input type="text" id="addr2" />
+        <span class="error-message" id="addr2-error"></span>
+      </label>
+      <label>City:
+        <input type="text" id="city" required />
+        <span class="error-message" id="city-error"></span>
+      </label>
+      <label>State:
+        <select id="state" required>
+          <option value="">--Select--</option>
+          <option value="TX">TX</option>
+          <option value="CA">CA</option>
+          <option value="NY">NY</option>
+        </select>
+        <span class="error-message" id="state-error"></span>
+      </label>
+      <label>Zip Code:
+        <input type="text" id="zip" placeholder="12345 or 12345-6789" pattern="\d{5}(-\d{4})?" required />
+        <span class="error-message" id="zip-error"></span>
+      </label>
+
+      <h3>Medical History</h3>
+      <div class="checkbox-group">
+        <label><input type="checkbox" value="Chicken Pox" class="illness" /> Chicken Pox</label>
+        <label><input type="checkbox" value="Measles" class="illness" /> Measles</label>
+        <label><input type="checkbox" value="Covid-19" class="illness" /> Covid-19</label>
+        <label><input type="checkbox" value="Heart Disease" class="illness" /> Heart Disease</label>
+        <label><input type="checkbox" value="Diabetes" class="illness" /> Diabetes</label>
+      </div>
+      <label>Vaccinated?
+        <label><input type="radio" name="vax" value="Yes" /> Yes</label>
+        <label><input type="radio" name="vax" value="No" /> No</label>
+        <label><input type="radio" name="vax" value="Unsure" /> Unsure</label>
+      </label>
+
+      <label>Describe Symptoms:
+        <textarea id="symptoms" placeholder="Enter symptoms"></textarea>
+      </label>
+      <label>Pain Level:
+        <input type="range" id="pain" min="0" max="10" value="5" />
+        <span id="pain-display">5</span>/10
+      </label>
+      <label>Gender:
+        <label><input type="radio" name="pgender" value="Male" /> Male</label>
+        <label><input type="radio" name="pgender" value="Female" /> Female</label>
+        <label><input type="radio" name="pgender" value="Other" /> Other</label>
+      </label>
+
+      <h3>Account Setup</h3>
+      <label>Username:
+        <input type="text" id="uid" required />
+        <span class="error-message" id="uid-error"></span>
+      </label>
+      <label>Password:
+        <input type="password" id="pword" required />
+        <span class="error-message" id="pword-error"></span>
+      </label>
+      <label>Re-enter Password:
+        <input type="password" id="pword2" required />
+        <span class="error-message" id="pword2-error"></span>
+      </label>
+
+      <label>
+        <input type="checkbox" id="rememberMe" checked /> Remember Me
+      </label>
+      <div id="not-you-container"></div>
+
+      <div class="form-controls">
+        <button type="button" id="validate-btn">Validate</button>
+        <input type="submit" id="submit-btn" value="Submit" disabled />
+        <input type="reset" value="Clear" />
+      </div>
     </form>
 
-    <div id="not-you-container"></div>
+    <div id="reviewModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Review Your Submission</h2>
+        <div id="reviewContent"></div>
+        <button id="confirmSubmit">Confirm and Submit</button>
+        <button id="editInfo">Go Back</button>
+      </div>
+    </div>
 
-    <h3 style="margin-top:40px;">Patient Education: Visit CDC for COVID-19 Guidance</h3>
+    <h3>Patient Education</h3>
     <iframe src="https://www.cdc.gov/coronavirus/2019-ncov/index.html" title="CDC COVID-19 Information"></iframe>
-
     <button id="reset-greeting">Reset Greeting</button>
   </main>
-
-  <!-- Modal Review Section -->
-  <div id="reviewModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Review Your Information</h2>
-      <div id="reviewContent"></div>
-      <button id="confirmSubmit">Confirm and Submit</button>
-      <button id="editInfo">Edit Information</button>
-    </div>
-  </div>
 
   <footer id="main-footer">
     <p>&copy; 2025 | Today's date: <span id="dateDisplay"></span></p>
