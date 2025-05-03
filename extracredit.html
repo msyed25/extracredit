@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Houston Clinic - Extra Credit Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="extracredit.css" />
+  <script src="https://www.google.com/recaptcha/api.js?render=your_site_key"></script>
+</head>
+<body>
+  <header id="main-header">
+    <div class="header-content">
+      <img src="medlogo.png" alt="Clinic Logo" id="logo" />
+      <h2>Houston Clinic - Patient Intake Form</h2>
+      <div id="greeting">Welcome New User</div>
+    </div>
+  </header>
+
+  <main class="format">
+    <!-- All form fields from Assignment 3 and 4 go here -->
+    <form id="patientForm">
+      <!-- Fields, validation, cookies, and review button will be handled via extracredit.js -->
+      <label for="fname">First Name:</label>
+      <input type="text" id="fname" required />
+      <span class="error-message" id="fname-error"></span>
+      <!-- Assume additional fields from prior assignment are restored here -->
+      <label><input type="checkbox" id="rememberMe" checked /> Remember Me</label>
+      <div id="not-you-container"></div>
+      <button type="button" id="review-btn">Review</button>
+      <input type="submit" id="submit-btn" value="Submit" disabled />
+    </form>
+
+    <section id="iframe-container">
+      <h3>CDC COVID-19 Information</h3>
+      <iframe src="https://www.cdc.gov/coronavirus/2019-ncov/index.html"></iframe>
+    </section>
+  </main>
+
+  <div id="reviewModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Review Your Information</h2>
+      <div id="reviewContent"></div>
+      <button id="confirmSubmit">Confirm and Submit</button>
+      <button id="editInfo">Edit Information</button>
+    </div>
+  </div>
+
+  <footer id="main-footer">
+    <p>&copy; 2025 | Today's date: <span id="dateDisplay"></span></p>
+    <p>Made by Muhammad Syed</p>
+  </footer>
+
+  <script src="extracredit.js"></script>
+</body>
+</html>
